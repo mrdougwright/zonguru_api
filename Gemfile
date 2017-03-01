@@ -24,8 +24,9 @@ gem 'puma', '~> 3.0'
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 gem 'rack-cors'
-gem 'vacuum'
-gem 'hashie'
+gem 'vacuum' # ruby wrapper for Amazon Product API
+gem 'hashie' # convert hashes for deep_find, etc
+gem 'mechanize' # use open-uri for Amazon reviews
 
 
 group :development, :test do
