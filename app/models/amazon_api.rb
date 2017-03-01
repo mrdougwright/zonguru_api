@@ -14,13 +14,10 @@ class AmazonApi
     )
   end
 
-
-  private
-
+private
   def init_request_obj
     r = Vacuum.new
     r.associate_tag = 'tag'
     r
   end
-
 end
