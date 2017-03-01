@@ -11,9 +11,9 @@ class ItemFinder < AmazonApi
 
   def review_data(item_hash)
     review_url = item_hash.deep_find('IFrameURL')
-    noko_obj = Mechanize.new.get(review_url)
-    rating = noko_obj.search('.crIFrameNumCustReviews').first.search('a').first.search('img').first.attribute('alt').value
-    review_count = noko_obj.search('.crIFrameNumCustReviews').first.search('a')[1].content
+    review_hash = parse_reviews(review_url) # This could take a while...
+    rating = review_hash.search('.crIFrameNumCustReviews').first.search('a').first.search('img').first.attribute('alt').value
+    review_count = review_hash.search('.crIFrameNumCustReviews').first.search('a')[1].content
     # rating.match(/[^\s]+/).to_s for just first value
     {
       rating: rating,
