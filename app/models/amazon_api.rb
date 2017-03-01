@@ -9,7 +9,7 @@ class AmazonApi
     request.item_lookup(
       query: {
         'ItemId' => asin.to_s,
-        'ResponseGroups' => groups.join(',')
+        'ResponseGroup' => groups.join(',')
       }
     )
   end
