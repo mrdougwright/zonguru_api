@@ -1,6 +1,7 @@
 class ItemFinder < AmazonApi
 
   DEFAULT_GROUPS = %w(ItemAttributes SalesRank Reviews)
+  # AVAILABLE_GROUPS = %w(Accessories ItemIds OfferFull OfferListings Offers OfferSummary PromotionSummary Reviews SalesRank Similarities Tracks Variations VariationImages VariationMatrix VariationOffers VariationSummary)
 
   def lookup(asin,groups=DEFAULT_GROUPS)
     Rails.cache.fetch(asin, expires_in: 5.minutes) do
