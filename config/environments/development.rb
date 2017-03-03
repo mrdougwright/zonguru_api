@@ -1,3 +1,6 @@
+# Run this instead of rails s
+# puma -b 'ssl://127.0.0.1:3000?key=/Users/dougwright/.ssh/server.key&cert=/Users/dougwright/.ssh/server.crt'
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 

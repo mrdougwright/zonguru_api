@@ -6,4 +6,8 @@ class Api::V1::AsinsController < ActionController::API
     end
     render json: @item_data
   end
+
+  def show
+
+  end
 end
