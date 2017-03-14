@@ -6,22 +6,36 @@ class AmazonApi
   end
 
   def item_lookup(asin, *groups)
-    sleep 1.1.seconds
-    request.item_lookup(
-      query: {
-        'ItemId' => asin.to_s,
-        'ResponseGroup' => groups.join(',')
-      }
-    )
+    begin
+      count ||= 1
+      puts "Pinging Amazon."
+      request.item_lookup(
+        query: {
+          'ItemId' => asin.to_s,
+          'ResponseGroup' => groups.join(',')
+        }
+      )
+    rescue Excon::Error::ServiceUnavailable => e
+      count += 0.1
+      puts "Failed: #{e}\nRetrying in #{count} seconds."
+      sleep count.seconds
+      retry
+    end
   end
 
-  def parse_reviews(url)
+  def item_search(keyword_str, category)
     begin
-      count ||= 0
-      Mechanize.new.get(url)
-    rescue Mechanize::ResponseCodeError => e
-      count += 1
-      puts "Failed with 503: Retrying in #{count} seconds."
+      count ||= 1
+      puts "Searching Amazon."
+      request.item_search(
+        query: {
+          'Keywords' => keyword_str,
+          'SearchIndex' => category
+        }
+      )
+    rescue Excon::Error::ServiceUnavailable => e
+      count += 0.1
+      puts "Failed: #{e}\nRetrying in #{count} seconds."
       sleep count.seconds
       retry
     end
