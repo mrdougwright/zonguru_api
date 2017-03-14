@@ -1,11 +1,12 @@
 class ItemFinder < AmazonApi
 
+  EXPIRE_TIME = ENV['CACHE_MINUTES'].to_i
   DEFAULT_GROUPS = %w(ItemAttributes SalesRank)
   # AVAILABLE_GROUPS = %w(Accessories ItemIds OfferFull OfferListings Offers OfferSummary PromotionSummary Reviews SalesRank Similarities Tracks Variations VariationImages VariationMatrix VariationOffers VariationSummary)
   CATEGORIES = ["All", "Apparel", "Appliances", "ArtsAndCrafts", "Automotive", "Baby", "Beauty", "Blended", "Books", "Classical", "Collectibles", "DVD", "DigitalMusic", "Electronics", "Fashion", "FashionBaby", "FashionBoys", "FashionGirls", "FashionMen", "FashionWomen", "GiftCards", "GourmetFood", "Grocery", "Handmade", "HealthPersonalCare", "HomeGarden", "Industrial", "Jewelry", "KindleStore", "Kitchen", "LawnAndGarden", "Luggage", "MP3Downloads", "Magazines", "Marketplace", "Miscellaneous", "MobileApps", "Movies", "Music", "MusicTracks", "MusicalInstruments", "OfficeProducts", "OutdoorLiving", "PCHardware", "Pantry", "PetSupplies", "Photo", "Shoes", "Software", "SportingGoods", "Tools", "Toys", "UnboxVideo", "VHS", "Vehicles", "Video", "VideoGames", "Watches", "Wine", "Wireless", "WirelessAccessories"]
 
   def cache_lookup(asin,groups=DEFAULT_GROUPS)
-    Rails.cache.fetch(asin, expires_in: 5.days) do
+    Rails.cache.fetch(asin, expires_in: EXPIRE_TIME.minutes) do
       response = item_lookup(asin, groups)
       response.to_h.extend Hashie::Extensions::DeepFind
     end

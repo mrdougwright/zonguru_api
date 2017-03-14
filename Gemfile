@@ -26,7 +26,7 @@ gem 'puma', '~> 3.0'
 gem 'rack-cors'
 gem 'vacuum' # ruby wrapper for Amazon Product API
 gem 'hashie' # convert hashes for deep_find, etc
-gem 'mechanize' # use open-uri for Amazon reviews
+gem 'redis-rails'
 
 
 group :development, :test do
